@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4445/4445942.png">
+  <title>Producto Maravilla</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background-color: #1f1f1f;
+    }
+
+    /* Fondo en mosaico */
+    .mosaico {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      z-index: -1;
+    }
+
+    .mosaico div {
+      background-size: cover;
+      background-position: center;
+      animation: mover 10s ease-in-out infinite alternate;
+    }
+
+    /* Movimiento hacia arriba o abajo */
+    .mosaico div:nth-child(odd) {
+      animation-direction: normal;
+    }
+
+    .mosaico div:nth-child(even) {
+      animation-direction: reverse;
+    }
+
+    @keyframes mover {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
+    }
+
+    /* Contenido principal */
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: white;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      text-align: center;
+      background-color: rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background-color: #5cb6ff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      background-color: #429de2;
+    }
+
+    .jesus {
+            grid-area: jesus;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+  </style>
+</head>
+<body>
+  <!-- Fondo mosaico -->
+  <div class="mosaico">
+    <div style="background-image:url('https://assets.clevelandclinic.org/transform/LargeFeatureImage/8ba1826a-a705-4294-8cf6-7e6d98cc0a3f/DitchPhoneInBed-948473178-770x553-1_jpg');"></div>
+    <div style="background-image:url('https://yawnder.com/wp-content/uploads/2018/09/cell-phone-sleep-study-768x512.jpeg');"></div>
+    <div style="background-image:url('https://cdn.prod.website-files.com/6047c2070742bf6f0e9457e6/605c7b047262162c47bb0d85_Do%20your%20preteens%20or%20teen%20have%20their%20cellphones%20in%20their%20bedrooms%20screenagers%20blog.jpg');"></div>
+    <div style="background-image:url('https://www.verywellmind.com/thmb/siyub7BKZC-uNlxFC542BMKYwt4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-9111394241-5a7df590ba617700360fb876.jpg');"></div>
+    <div style="background-image:url('https://picsum.photos/id/1025/500/500');"></div>
+    <div style="background-image:url('https://picsum.photos/id/1035/500/500');"></div>
+    <div style="background-image:url('https://i0.wp.com/oakparktalon.org/wp-content/uploads/2025/04/Snip-2025-04-07-09.12.40.jpg');"></div>
+    <div style="background-image:url('https://www.shutterstock.com/image-vector/young-woman-lying-bed-before-600nw-2108545355.jpg');"></div>
+    <div style="background-image:url('https://ewscripps.brightspotcdn.com/dims4/default/4d5c078/2147483647/strip/true/crop/640x360+0+10/resize/1200x675!/quality/90/?url=http%3A%2F%2Fsharing.wkbw.com%2Fsharescnn%2Fphoto%2F2017%2F03%2F02%2FScreen%20Shot%202017-03-02%20at%202.21.13%20PM_1488489848678_56198424_ver1.0_640_480.png');"></div>
+    <div style="background-image:url('https://i0.wp.com/www.michigandaily.com/wp-content/uploads/2024/03/unnamed-11.png');"></div>
+    <div style="background-image:url('https://img.freepik.com/premium-vector/man-lying-bed-late-night-watching-online-movie-digital-device-gadget-evening-leisure-rest-relax-time-with-tablet-pc-before-sleep-bedroom-screen-light-flat-vector-illustration_198278-25224.jpg?semt=ais_hybrid&w=740&q=80');"></div>
+    <div style="background-image:url('https://picsum.photos/id/1062/500/500');"></div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="container">
+    <div class="jesus">
+        <img src="./imagenes/jesus.gif" alt="jesus">
+    </div>
+    <h1>¿Estas cansado?</h1>
+    <button onclick="lanzarConfeti()">Iniciar prueba</button>
+  </div>
+
+  <!-- Librería de confeti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function lanzarConfeti() {
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 },
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 100,
+          spread: 120,
+          origin: { y: 0.5 },
+        });
+      }, 300);
+    }
+  </script>
+</body>
+</html>
