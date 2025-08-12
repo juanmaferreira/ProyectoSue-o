@@ -6,98 +6,82 @@
   <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/4445/4445942.png">
   <title>Producto Maravilla</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
       height: 100vh;
       overflow: hidden;
-      position: relative;
       background-color: #1f1f1f;
     }
-
-    /* Fondo en mosaico */
     .mosaico {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      position: absolute; inset: 0;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(3, 1fr);
       z-index: -1;
     }
-
     .mosaico div {
-      background-size: cover;
-      background-position: center;
+      background-size: cover; background-position: center;
       animation: mover 10s ease-in-out infinite alternate;
     }
-
-    /* Movimiento hacia arriba o abajo */
-    .mosaico div:nth-child(odd) {
-      animation-direction: normal;
-    }
-
-    .mosaico div:nth-child(even) {
-      animation-direction: reverse;
-    }
-
+    .mosaico div:nth-child(even) { animation-direction: reverse; }
     @keyframes mover {
       0% { transform: translateY(0); }
       100% { transform: translateY(-20px); }
     }
-
-    /* Contenido principal */
     .container {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      color: white;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-      text-align: center;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      height: 100%; color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.5);
       background-color: rgba(0,0,0,0.3);
     }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-
+    h1 { font-size: 3rem; margin-bottom: 20px; }
     button {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      background-color: #5cb6ff;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
+      padding: 1rem 2rem; font-size: 1.2rem;
+      background-color: #5cb6ff; color: white; border: none;
+      border-radius: 12px; cursor: pointer;
       transition: background-color 0.3s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
+    button:hover { background-color: #429de2; }
+    .jesus { display: flex; align-items: center; justify-content: center; }
 
-    button:hover {
-      background-color: #429de2;
+    /* Modal */
+    #modalCompras {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      justify-content: center; align-items: center;
+      z-index: 10;
     }
-
-    .jesus {
-            grid-area: jesus;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    #modalCompras .contenido {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      width: 350px;
+      position: relative;
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+      animation: zoomIn 0.3s ease;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    #modalCompras img.producto {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    #modalCompras img.grinch {
+      width: 80px;
+      position: absolute;
+      top: -40px; right: -40px;
+      transform: rotate(15deg);
+    }
   </style>
 </head>
 <body>
+
   <!-- Fondo mosaico -->
   <div class="mosaico">
     <div style="background-image:url('https://assets.clevelandclinic.org/transform/LargeFeatureImage/8ba1826a-a705-4294-8cf6-7e6d98cc0a3f/DitchPhoneInBed-948473178-770x553-1_jpg');"></div>
@@ -114,25 +98,54 @@
     <div style="background-image:url('https://picsum.photos/id/1062/500/500');"></div>
   </div>
 
-  <!-- Contenido -->
+  <!-- Contenido principal -->
   <div class="container">
     <div class="jesus">
         <img src="./imagenes/jesus.gif" alt="jesus">
     </div>
-    <h1>¿Estas cansado?</h1>
-    <button onclick="lanzarConfeti()">Iniciar prueba</button>
+    <h1>¿Estás cansado?</h1>
+    <button id="btnIniciar">Iniciar prueba</button>
+  </div>
+
+  <!-- Modal de compras -->
+  <div id="modalCompras">
+    <div class="contenido">
+      <img class="grinch" src="https://media.tenor.com/zGBJdaw-0mYAAAAi/the-grinch-smile.gif" alt="Grinch">
+      <img class="producto" src="https://static.wikia.nocookie.net/disney/images/8/84/Profile_-_Sleepy.png" alt="Producto ejemplo">
+      <p>(Imagen meramente ilustrativa :P)</p>
+      <br>
+      <button id="btnDinero">💵 Quiero comprar</button>
+      <br><br>
+      <button onclick="cerrarModal()">Cerrar</button>
+    </div>
   </div>
 
   <!-- Librería de confeti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
+    const modal = document.getElementById("modalCompras");
+    const btnIniciar = document.getElementById("btnIniciar");
+    const btnDinero = document.getElementById("btnDinero");
+
+    btnIniciar.addEventListener("click", () => {
+      lanzarConfeti();
+      modal.style.display = "flex";
+    });
+
+    btnDinero.addEventListener("click", () => {
+      confetiDinero();
+    });
+
+    function cerrarModal() {
+      modal.style.display = "none";
+    }
+
     function lanzarConfeti() {
-      confetti({
+        confetti({
         particleCount: 150,
         spread: 100,
         origin: { y: 0.6 },
       });
-
       setTimeout(() => {
         confetti({
           particleCount: 100,
@@ -141,6 +154,21 @@
         });
       }, 300);
     }
+
+    function confetiDinero() {
+  const emojis = ["💸","💰","🤑","💵"];
+  for (let i = 0; i < 20; i++) {
+    confetti({
+      particleCount: 1,
+      angle: Math.random() * 360,
+      spread: 55,
+      origin: { x: Math.random(), y: Math.random() - 0.2 },
+      shapes: ["emoji"],
+      emoji: emojis[Math.floor(Math.random() * emojis.length)]
+    });
+  }
+}
+
   </script>
 </body>
 </html>
